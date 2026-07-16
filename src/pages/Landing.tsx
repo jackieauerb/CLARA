@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import "../css/landing.css";
+import "../css/Landing.css";
 
 type AccessOptionProps = {
   label: string;
