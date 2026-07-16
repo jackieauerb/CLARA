@@ -8,7 +8,7 @@ interface EducatorDashboardProps {
   onLogout: () => void
 }
 
-export default function EducatorDashboard({ user, onSwitchUser, onLogout }: EducatorDashboardProps) {
+export default function EducatorDashboard({ user, onSwitchUser}: EducatorDashboardProps) {
   const { implementationState } = useProtocol()
 
   const technicians = [

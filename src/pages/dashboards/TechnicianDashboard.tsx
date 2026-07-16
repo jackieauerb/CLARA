@@ -9,7 +9,7 @@ interface TechnicianDashboardProps {
   onLogout: () => void
 }
 
-export default function TechnicianDashboard({ user, onSwitchUser, onLogout }: TechnicianDashboardProps) {
+export default function TechnicianDashboard({ user, onSwitchUser}: TechnicianDashboardProps) {
   const { implementationState, updateImplementationState } = useProtocol()
   const [trainingCompleted, setTrainingCompleted] = useState(false)
   const [acknowledged, setAcknowledged] = useState(false)

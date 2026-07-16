@@ -74,10 +74,6 @@ export default function Login() {
 
   const isHospital = orgType === 'hospital'
 
-  const orgTitle = isHospital
-    ? 'Hospital'
-    : 'Medical Device Company'
-
   return (
     <main className="login">
       <div

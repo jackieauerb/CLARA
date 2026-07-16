@@ -8,7 +8,7 @@ interface DirectorDashboardProps {
   onLogout: () => void
 }
 
-export default function DirectorDashboard({ user, onSwitchUser, onLogout }: DirectorDashboardProps) {
+export default function DirectorDashboard({ user, onSwitchUser}: DirectorDashboardProps) {
   const { implementationState, updateImplementationState } = useProtocol()
 
   const implementationSteps = [

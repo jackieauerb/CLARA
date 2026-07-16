@@ -8,7 +8,7 @@ interface SPMDashboardProps {
   onLogout: () => void
 }
 
-export default function SPMDashboard({ user, onSwitchUser, onLogout }: SPMDashboardProps) {
+export default function SPMDashboard({ user, onSwitchUser}: SPMDashboardProps) {
   const { implementationState, updateImplementationState } = useProtocol()
 
   return (

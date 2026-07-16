@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Home, Activity, Bell, CheckSquare, Shield, LayoutDashboard, Package, FileText, Building, BarChart3 } from 'lucide-react'
+import { Home, Bell, CheckSquare, Shield, LayoutDashboard, Package, FileText, Building, BarChart3 } from 'lucide-react'
 
 interface SidebarProps {
   type: 'hospital' | 'manufacturer'
