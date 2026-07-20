@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import endoscopeImage from '../../assets/devices/endoscope.png'
+import infusionPumpImage from '../../assets/devices/infusion-pump.png'
+import patientMonitorImage from '../../assets/devices/patient-monitor.png'
+
 type HospitalStatus =
   | 'Implemented'
   | 'In progress'
@@ -28,6 +32,7 @@ interface HospitalAdoption {
 interface ProtocolChange {
   id: number
   device: string
+  image: string
   title: string
   changeId: string
   issuedDate: string
@@ -50,6 +55,7 @@ const protocolChanges: ProtocolChange[] = [
   {
     id: 1,
     device: 'AsterScope Flex 300',
+    image: endoscopeImage,
     title: 'Revised distal-channel cleaning procedure',
     changeId: 'AC-2026-014',
     issuedDate: 'July 14, 2026',
@@ -128,6 +134,7 @@ const protocolChanges: ProtocolChange[] = [
   {
     id: 2,
     device: 'Infusion Pump X500',
+    image: infusionPumpImage,
     title: 'Updated occlusion-alarm response',
     changeId: 'IP-2026-008',
     issuedDate: 'July 8, 2026',
@@ -189,6 +196,7 @@ const protocolChanges: ProtocolChange[] = [
   {
     id: 3,
     device: 'Patient Monitor V2',
+    image: patientMonitorImage,
     title: 'Software update and alarm verification',
     changeId: 'PM-2026-003',
     issuedDate: 'June 18, 2026',
@@ -253,17 +261,17 @@ function getMetrics(protocol: ProtocolChange): ProtocolMetrics {
   const total = protocol.hospitals.length
 
   const acknowledged = protocol.hospitals.filter(
-    (hospital) => hospital.acknowledged
+    (hospital) => hospital.acknowledged,
   ).length
 
   const implemented = protocol.hospitals.filter(
-    (hospital) => hospital.finalConfirmation
+    (hospital) => hospital.finalConfirmation,
   ).length
 
   const needsAttention = protocol.hospitals.filter(
     (hospital) =>
       hospital.status === 'Blocked' ||
-      hospital.status === 'Not acknowledged'
+      hospital.status === 'Not acknowledged',
   ).length
 
   return {
@@ -331,9 +339,9 @@ function getNextAction(hospital: HospitalAdoption) {
 export default function ManufacturerDashboard() {
   const navigate = useNavigate()
 
-  const [selectedProtocolId, setSelectedProtocolId] = useState<number | null>(
-    null
-  )
+  const [selectedProtocolId, setSelectedProtocolId] = useState<
+    number | null
+  >(null)
 
   const [statusFilter, setStatusFilter] = useState<
     'All' | HospitalStatus
@@ -365,15 +373,15 @@ export default function ManufacturerDashboard() {
   }, [])
 
   const selectedProtocol = protocolChanges.find(
-    (protocol) => protocol.id === selectedProtocolId
+    (protocol) => protocol.id === selectedProtocolId,
   )
 
   const activeProtocols = protocolChanges.filter(
-    (protocol) => getMetrics(protocol).implementationRate < 100
+    (protocol) => getMetrics(protocol).implementationRate < 100,
   )
 
   const completedProtocols = protocolChanges.filter(
-    (protocol) => getMetrics(protocol).implementationRate === 100
+    (protocol) => getMetrics(protocol).implementationRate === 100,
   )
 
   const filteredHospitals = useMemo(() => {
@@ -411,7 +419,7 @@ export default function ManufacturerDashboard() {
 
   const totalAttentionItems = activeProtocols.reduce(
     (total, protocol) => total + getMetrics(protocol).needsAttention,
-    0
+    0,
   )
 
   return (
@@ -455,6 +463,7 @@ export default function ManufacturerDashboard() {
           <div className="flex items-center gap-4">
             <div className="hidden text-right sm:block">
               <p className="text-sm font-semibold">Maya Chen</p>
+
               <p className="text-xs text-black/45">
                 Regulatory Affairs · Aster Medical
               </p>
@@ -491,8 +500,9 @@ export default function ManufacturerDashboard() {
                 </h1>
 
                 <p className="mt-5 max-w-2xl text-base leading-7 text-black/55">
-                  Review how hospitals are adopting your latest protocol
-                  changes and identify where follow-up is needed.
+                  Review how hospitals are adopting your latest
+                  protocol changes and identify where follow-up is
+                  needed.
                 </p>
               </div>
 
@@ -570,7 +580,9 @@ function ProtocolSection({
           </h2>
         </div>
 
-        <p className="mt-2 text-sm text-black/50">{description}</p>
+        <p className="mt-2 text-sm text-black/50">
+          {description}
+        </p>
       </div>
 
       <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
@@ -619,10 +631,12 @@ function ProtocolCard({
       onClick={() => onSelect(protocol.id)}
       className={`group relative overflow-hidden rounded-[26px] border bg-white p-7 text-left transition duration-200 hover:-translate-y-1 hover:shadow-[0_14px_35px_rgba(21,32,28,0.08)] ${borderClass}`}
     >
-      <div className={`absolute left-0 top-0 h-1 w-full ${topBarClass}`} />
+      <div
+        className={`absolute left-0 top-0 h-1 w-full ${topBarClass}`}
+      />
 
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-black/40">
             {protocol.changeId}
           </p>
@@ -645,11 +659,21 @@ function ProtocolCard({
                 : 'border-[#dfcfaa] bg-[#f5efe1] text-[#765f28]'
           }`}
         >
-          {completed ? 'Complete' : `${protocol.priority} priority`}
+          {completed
+            ? 'Complete'
+            : `${protocol.priority} priority`}
         </span>
       </div>
 
-      <div className="mt-8 grid grid-cols-3 gap-3">
+      <div className="mt-5 flex h-[150px] items-center justify-center overflow-hidden">
+        <img
+          src={protocol.image}
+          alt={protocol.device}
+          className="h-full w-full object-contain transition duration-300 group-hover:scale-[1.025]"
+        />
+      </div>
+
+      <div className="mt-7 grid grid-cols-3 gap-3">
         <SmallMetric
           label="Acknowledged"
           value={`${metrics.acknowledgementRate}%`}
@@ -665,14 +689,17 @@ function ProtocolCard({
         <SmallMetric
           label="Attention"
           value={metrics.needsAttention.toString()}
-          tone={metrics.needsAttention > 0 ? 'warning' : 'neutral'}
+          tone={
+            metrics.needsAttention > 0 ? 'warning' : 'neutral'
+          }
         />
       </div>
 
       <div className="mt-7">
         <div className="mb-2 flex items-center justify-between text-xs">
           <span className="text-black/45">
-            {metrics.implemented} of {metrics.total} hospitals confirmed
+            {metrics.implemented} of {metrics.total} hospitals
+            confirmed
           </span>
 
           <span className="font-semibold">
@@ -685,7 +712,9 @@ function ProtocolCard({
             className={`h-full rounded-full ${
               completed ? 'bg-[#789d8b]' : 'bg-[#567363]'
             }`}
-            style={{ width: `${metrics.implementationRate}%` }}
+            style={{
+              width: `${metrics.implementationRate}%`,
+            }}
           />
         </div>
       </div>
@@ -693,7 +722,10 @@ function ProtocolCard({
       <div className="mt-7 flex items-center justify-between border-t border-black/10 pt-5">
         <div>
           <p className="text-xs text-black/40">Deadline</p>
-          <p className="mt-1 text-sm font-semibold">{protocol.deadline}</p>
+
+          <p className="mt-1 text-sm font-semibold">
+            {protocol.deadline}
+          </p>
         </div>
 
         <span className="text-sm font-semibold transition-transform group-hover:translate-x-1">
@@ -710,7 +742,11 @@ interface SmallMetricProps {
   tone: 'neutral' | 'success' | 'warning'
 }
 
-function SmallMetric({ label, value, tone }: SmallMetricProps) {
+function SmallMetric({
+  label,
+  value,
+  tone,
+}: SmallMetricProps) {
   const style =
     tone === 'success'
       ? 'border-[#c8ddcf] bg-[#edf5f0]'
@@ -720,7 +756,9 @@ function SmallMetric({ label, value, tone }: SmallMetricProps) {
 
   return (
     <div className={`rounded-2xl border p-3 ${style}`}>
-      <p className="text-xl font-semibold tracking-[-0.04em]">{value}</p>
+      <p className="text-xl font-semibold tracking-[-0.04em]">
+        {value}
+      </p>
 
       <p className="mt-1 text-[9px] font-semibold uppercase tracking-[0.08em] text-black/45">
         {label}
@@ -761,7 +799,15 @@ function ProtocolDetail({
       </button>
 
       <section className="rounded-[30px] border border-black/10 bg-white p-8 md:p-10">
-        <div className="grid gap-10 xl:grid-cols-[1.4fr_0.8fr] xl:items-end">
+        <div className="grid gap-10 xl:grid-cols-[220px_minmax(0,1.25fr)_minmax(300px,0.8fr)] xl:items-center">
+          <div className="flex min-h-[220px] items-center justify-center">
+            <img
+              src={protocol.image}
+              alt={protocol.device}
+              className="max-h-[220px] w-full object-contain"
+            />
+          </div>
+
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-black/40">
               {protocol.changeId} · Issued {protocol.issuedDate}
@@ -771,15 +817,21 @@ function ProtocolDetail({
               {protocol.device}
             </h1>
 
-            <p className="mt-3 text-xl text-black/55">{protocol.title}</p>
+            <p className="mt-3 text-xl text-black/55">
+              {protocol.title}
+            </p>
 
             <p className="mt-7 max-w-3xl text-sm leading-7 text-black/55">
               {protocol.summary}
             </p>
 
             <p className="mt-6 text-sm">
-              <span className="text-black/45">Implementation deadline:</span>{' '}
-              <span className="font-semibold">{protocol.deadline}</span>
+              <span className="text-black/45">
+                Implementation deadline:
+              </span>{' '}
+              <span className="font-semibold">
+                {protocol.deadline}
+              </span>
             </p>
           </div>
 
@@ -805,7 +857,11 @@ function ProtocolDetail({
             <LargeMetric
               label="Need attention"
               value={metrics.needsAttention.toString()}
-              tone={metrics.needsAttention > 0 ? 'warning' : 'neutral'}
+              tone={
+                metrics.needsAttention > 0
+                  ? 'warning'
+                  : 'neutral'
+              }
             />
           </div>
         </div>
@@ -819,15 +875,17 @@ function ProtocolDetail({
             </h2>
 
             <p className="mt-2 text-sm text-black/50">
-              Review implementation progress and identify the correct person
-              for follow-up.
+              Review implementation progress and identify the
+              correct person for follow-up.
             </p>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <input
               value={searchQuery}
-              onChange={(event) => onSearchChange(event.target.value)}
+              onChange={(event) =>
+                onSearchChange(event.target.value)
+              }
               placeholder="Search hospital or contact"
               className="min-w-[260px] rounded-xl border border-black/15 bg-white px-4 py-3 text-sm outline-none transition focus:border-black"
             />
@@ -836,7 +894,9 @@ function ProtocolDetail({
               value={statusFilter}
               onChange={(event) =>
                 onFilterChange(
-                  event.target.value as 'All' | HospitalStatus
+                  event.target.value as
+                    | 'All'
+                    | HospitalStatus,
                 )
               }
               className="rounded-xl border border-black/15 bg-white px-4 py-3 text-sm outline-none transition focus:border-black"
@@ -844,7 +904,9 @@ function ProtocolDetail({
               <option value="All">All statuses</option>
               <option value="Implemented">Implemented</option>
               <option value="In progress">In progress</option>
-              <option value="Not acknowledged">Not acknowledged</option>
+              <option value="Not acknowledged">
+                Not acknowledged
+              </option>
               <option value="Blocked">Blocked</option>
             </select>
           </div>
@@ -852,7 +914,10 @@ function ProtocolDetail({
 
         <div className="space-y-4">
           {hospitals.map((hospital) => (
-            <HospitalCard key={hospital.id} hospital={hospital} />
+            <HospitalCard
+              key={hospital.id}
+              hospital={hospital}
+            />
           ))}
         </div>
       </section>
@@ -866,7 +931,11 @@ interface LargeMetricProps {
   tone: 'neutral' | 'success' | 'warning'
 }
 
-function LargeMetric({ label, value, tone }: LargeMetricProps) {
+function LargeMetric({
+  label,
+  value,
+  tone,
+}: LargeMetricProps) {
   const style =
     tone === 'success'
       ? 'border-[#b8d1c2] bg-[#e7f1eb]'
@@ -876,7 +945,9 @@ function LargeMetric({ label, value, tone }: LargeMetricProps) {
 
   return (
     <div className={`rounded-2xl border p-5 ${style}`}>
-      <p className="text-4xl font-semibold tracking-[-0.06em]">{value}</p>
+      <p className="text-4xl font-semibold tracking-[-0.06em]">
+        {value}
+      </p>
 
       <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.11em] text-black/45">
         {label}
@@ -889,11 +960,15 @@ interface HospitalCardProps {
   hospital: HospitalAdoption
 }
 
-function HospitalCard({ hospital }: HospitalCardProps) {
+function HospitalCard({
+  hospital,
+}: HospitalCardProps) {
   const trainingPercentage =
     hospital.trainingRequired > 0
       ? Math.round(
-          (hospital.trainingCompleted / hospital.trainingRequired) * 100
+          (hospital.trainingCompleted /
+            hospital.trainingRequired) *
+            100,
         )
       : 0
 
@@ -903,7 +978,7 @@ function HospitalCard({ hospital }: HospitalCardProps) {
         <div>
           <span
             className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${getStatusStyles(
-              hospital.status
+              hospital.status,
             )}`}
           >
             {hospital.status}
@@ -956,7 +1031,8 @@ function HospitalCard({ hospital }: HospitalCardProps) {
             <StatusRow
               label={`Training ${hospital.trainingCompleted}/${hospital.trainingRequired}`}
               complete={
-                hospital.trainingCompleted === hospital.trainingRequired
+                hospital.trainingCompleted ===
+                hospital.trainingRequired
               }
             />
 
@@ -969,13 +1045,16 @@ function HospitalCard({ hospital }: HospitalCardProps) {
           <div className="mt-6">
             <div className="mb-2 flex justify-between text-xs text-black/45">
               <span>Training completion</span>
+
               <span>{trainingPercentage}%</span>
             </div>
 
             <div className="h-1.5 overflow-hidden rounded-full bg-black/10">
               <div
                 className="h-full rounded-full bg-[#789d8b]"
-                style={{ width: `${trainingPercentage}%` }}
+                style={{
+                  width: `${trainingPercentage}%`,
+                }}
               />
             </div>
           </div>
@@ -1008,7 +1087,8 @@ function HospitalCard({ hospital }: HospitalCardProps) {
                 href={`mailto:${hospital.contactEmail}`}
                 className="rounded-xl bg-[#15201c] px-4 py-3 text-sm font-semibold text-white transition hover:bg-black"
               >
-                Contact {hospital.contactName.split(' ')[0]}
+                Contact{' '}
+                {hospital.contactName.split(' ')[0]}
               </a>
             )}
 
@@ -1030,7 +1110,10 @@ interface StatusRowProps {
   complete: boolean
 }
 
-function StatusRow({ label, complete }: StatusRowProps) {
+function StatusRow({
+  label,
+  complete,
+}: StatusRowProps) {
   return (
     <div className="flex items-center justify-between gap-5 text-sm">
       <span className="text-black/60">{label}</span>

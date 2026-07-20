@@ -69,7 +69,7 @@ export default function Login() {
       return
     }
 
-    navigate('/dashboard')
+    navigate('/hospital')
   }
 
   const isHospital = orgType === 'hospital'
