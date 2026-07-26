@@ -1,4 +1,8 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+} from 'react-router-dom'
 import { ProtocolProvider } from './context/ProtocolContext'
 
 import Landing from './pages/Landing'
@@ -12,11 +16,20 @@ function App() {
     <ProtocolProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route
+            path="/"
+            element={<Landing />}
+          />
 
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={<Login />}
+          />
 
-          <Route path="/hospital" element={<Dashboard />} />
+          <Route
+            path="/hospital"
+            element={<Dashboard />}
+          />
 
           <Route
             path="/hospital/devices/:deviceId"

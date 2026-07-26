@@ -1,4 +1,9 @@
-import { useState } from 'react'
+import {
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import {
   Link,
   useNavigate,
@@ -30,24 +35,56 @@ const USER_IDS: Record<string, string> = {
 export default function Login() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
+  const navigationTimer = useRef<number | null>(null)
 
   const orgType = searchParams.get('type') || 'hospital'
+  const isHospital = orgType === 'hospital'
 
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLeaving, setIsLeaving] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      setIsLoaded(true)
+    })
+
+    return () => {
+      cancelAnimationFrame(frame)
+
+      if (navigationTimer.current) {
+        window.clearTimeout(navigationTimer.current)
+      }
+    }
+  }, [])
+
+  const goToWorkspace = (destination: string) => {
+    setIsLeaving(true)
+
+    navigationTimer.current = window.setTimeout(() => {
+      navigate(destination)
+    }, 260)
+  }
+
   const handleSubmit = (
-    event: React.FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault()
+
+    if (isLeaving) return
+
     setError('')
 
     const normalizedEmail = email.trim().toLowerCase()
-    const validPassword = CREDENTIALS[normalizedEmail]
+    const expectedPassword = CREDENTIALS[normalizedEmail]
 
-    if (!validPassword || validPassword !== password) {
-      setError('Invalid credentials')
+    if (
+      !expectedPassword ||
+      expectedPassword !== password
+    ) {
+      setError('Incorrect email or password.')
       return
     }
 
@@ -58,150 +95,145 @@ export default function Login() {
     )
 
     if (!user) {
-      setError('User profile could not be found')
+      setError('Unable to locate this account.')
       return
     }
 
     localStorage.setItem('currentUser', user.id)
 
-    if (user.id === 'maya-chen') {
-      navigate('/manufacturer-dashboard')
-      return
-    }
-
-    navigate('/hospital')
+    goToWorkspace(
+      user.id === 'maya-chen'
+        ? '/manufacturer-dashboard'
+        : '/hospital'
+    )
   }
 
-  const isHospital = orgType === 'hospital'
+  const fillDemoCredentials = () => {
+    setError('')
+
+    setEmail(
+      isHospital
+        ? 'emily@northvalleymed.org'
+        : 'maya@astermedical.com'
+    )
+
+    setPassword('demo123')
+  }
 
   return (
-    <main className="login">
-      <div
-        className="login__wash"
-        aria-hidden="true"
-      />
+    <main
+      className={[
+        'login-page',
+        isLoaded ? 'login-page--loaded' : '',
+        isLeaving ? 'login-page--leaving' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
+      <div className="login-glow login-glow-left" />
+      <div className="login-glow login-glow-right" />
 
-      <Link
-        to="/"
-        aria-label="Return to organization selection"
-        style={{
-          position: 'fixed',
-          top: '28px',
-          left: '32px',
-          zIndex: 20,
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          color: 'rgba(21, 32, 28, 0.55)',
-          fontSize: '14px',
-          fontWeight: 600,
-          textDecoration: 'none',
-          transition:
-            'color 180ms ease, transform 180ms ease',
-        }}
-        onMouseEnter={(event) => {
-          event.currentTarget.style.color = '#15201c'
-          event.currentTarget.style.transform =
-            'translateX(-2px)'
-        }}
-        onMouseLeave={(event) => {
-          event.currentTarget.style.color =
-            'rgba(21, 32, 28, 0.55)'
-          event.currentTarget.style.transform =
-            'translateX(0)'
-        }}
+      <svg
+        className="login-orbit login-orbit-top"
+        viewBox="0 0 900 260"
+        aria-hidden="true"
       >
+        <path d="M-40 245C220 250 565 180 760-25" />
+        <circle cx="515" cy="96" r="5" />
+      </svg>
+
+      <svg
+        className="login-orbit login-orbit-bottom"
+        viewBox="0 0 720 520"
+        aria-hidden="true"
+      >
+        <path d="M15 530C220 480 470 400 720 140" />
+        <path d="M430 540C485 390 560 240 720 120" />
+        <circle cx="526" cy="305" r="5" />
+      </svg>
+
+      <Link className="login-back" to="/">
         <span aria-hidden="true">←</span>
         <span>Back</span>
       </Link>
 
-      <section className="login__hero">
-        <h1 className="wordmark">
-          VERA
-          <span
-            style={{
-              color: '#4f7cff',
-              fontSize: '0.72em',
-              position: 'relative',
-              top: '-0.18em',
-              marginLeft: '2px',
-            }}
-          >
-            +
-          </span>
-        </h1>
-
-        <p className="login__statement">
+      <section
+        className="login-panel"
+        aria-labelledby="login-title"
+      >
+        <header className="login-heading">
+        <h1 id="login-title">
           {isHospital
-            ? 'HOSPITAL LOGIN'
-            : 'MEDICAL DEVICE COMPANY LOGIN'}
-        </p>
+            ? 'Hospital access'
+            : 'Device company access'}
+        </h1>
+      </header>
 
         <form
-          className="login__form"
+          className="login-form"
           onSubmit={handleSubmit}
         >
-          {error && (
-            <div className="login__error">
-              {error}
-            </div>
-          )}
-
-          <div className="login__field">
-            <label htmlFor="email">Email</label>
+          <label className="login-field">
+            <span>Email</span>
 
             <input
-              id="email"
               type="email"
               value={email}
-              onChange={(event) =>
+              onChange={(event) => {
                 setEmail(event.target.value)
-              }
-              placeholder="Enter your email"
+                setError('')
+              }}
+              placeholder="name@organization.com"
               autoComplete="email"
               required
             />
-          </div>
+          </label>
 
-          <div className="login__field">
-            <label htmlFor="password">
-              Password
-            </label>
+          <label className="login-field">
+            <span>Password</span>
 
             <input
-              id="password"
               type="password"
               value={password}
-              onChange={(event) =>
+              onChange={(event) => {
                 setPassword(event.target.value)
-              }
+                setError('')
+              }}
               placeholder="Enter your password"
               autoComplete="current-password"
               required
             />
-          </div>
+          </label>
+
+          <p
+            className={[
+              'login-error',
+              error ? 'login-error--visible' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            role="alert"
+            aria-live="polite"
+          >
+            {error || '\u00A0'}
+          </p>
 
           <button
+            className="login-submit"
             type="submit"
-            className="login__submit"
+            disabled={isLeaving}
           >
-            Sign In
+            {isLeaving ? 'Opening…' : 'Sign In'}
           </button>
         </form>
 
-        <div className="login__demo-hint">
-          <p>Demo credentials:</p>
-
-          {isHospital ? (
-            <p>
-              emily@northvalleymed.org / demo123
-            </p>
-          ) : (
-            <p>
-              maya@astermedical.com / demo123
-            </p>
-          )}
-        </div>
+        <button
+          type="button"
+          className="login-demo"
+          onClick={fillDemoCredentials}
+        >
+          Use demo credentials
+        </button>
       </section>
     </main>
   )
