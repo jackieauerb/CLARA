@@ -472,7 +472,7 @@ export default function DeviceDetails() {
             onClick={() => navigate('/hospital')}
             className="text-xl font-semibold tracking-[-0.055em]"
           >
-            VERAFY
+            VERA
             <span className="text-[#4f6fff]">+</span>
           </button>
 

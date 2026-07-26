@@ -117,7 +117,7 @@ export default function Login() {
 
       <section className="login__hero">
         <h1 className="wordmark">
-          VERAFY
+          VERA
           <span
             style={{
               color: '#4f7cff',

@@ -457,7 +457,7 @@ export default function ManufacturerDashboard() {
             }}
             className="text-xl font-semibold tracking-[-0.04em]"
           >
-            VERAFY<span className="text-[#4F7CFF]">+</span>
+            VERA<span className="text-[#4F7CFF]">+</span>
           </button>
 
           <div className="flex items-center gap-4">

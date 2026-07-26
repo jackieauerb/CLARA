@@ -25,7 +25,7 @@ export default function Landing() {
       <div className="landing__wash" aria-hidden="true" />
 
       <section className="landing__hero">
-        <h1 className="wordmark">VERAFY<span className="text-[#4F7CFF]">+</span></h1>
+        <h1 className="wordmark">VERA<span className="text-[#4F7CFF]">+</span></h1>
 
         <p className="landing__statement">
           Protocol implementation, verified.
