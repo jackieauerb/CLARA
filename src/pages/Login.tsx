@@ -9,28 +9,9 @@ import {
   useNavigate,
   useSearchParams,
 } from 'react-router-dom'
-import { DEMO_USERS } from '../types'
+import { DEMO_ACCOUNTS, DEMO_USERS } from '../data/users'
 import '../css/login.css'
 
-const CREDENTIALS: Record<string, string> = {
-  'maya@astermedical.com': 'demo123',
-  'emily@northvalleymed.org': 'demo123',
-  'lena@summitregional.com': 'demo123',
-  'jordan@summitregional.com': 'demo123',
-  'priya@summitregional.com': 'demo123',
-  'marcus@summitregional.com': 'demo123',
-  'elena@summitregional.com': 'demo123',
-}
-
-const USER_IDS: Record<string, string> = {
-  'maya@astermedical.com': 'maya-chen',
-  'emily@northvalleymed.org': 'emily-carter',
-  'lena@summitregional.com': 'lena-ortiz',
-  'jordan@summitregional.com': 'jordan-lee',
-  'priya@summitregional.com': 'priya-shah',
-  'marcus@summitregional.com': 'marcus-reed',
-  'elena@summitregional.com': 'elena-vasquez',
-}
 
 export default function Login() {
   const navigate = useNavigate()
@@ -65,7 +46,7 @@ export default function Login() {
 
     navigationTimer.current = window.setTimeout(() => {
       navigate(destination)
-    }, 260)
+    }, 300)
   }
 
   const handleSubmit = (
@@ -78,20 +59,18 @@ export default function Login() {
     setError('')
 
     const normalizedEmail = email.trim().toLowerCase()
-    const expectedPassword = CREDENTIALS[normalizedEmail]
 
-    if (
-      !expectedPassword ||
-      expectedPassword !== password
-    ) {
+    const account = DEMO_ACCOUNTS.find(
+      (demoAccount) => demoAccount.email === normalizedEmail
+    )
+
+    if (!account || account.password !== password) {
       setError('Incorrect email or password.')
       return
     }
 
-    const userId = USER_IDS[normalizedEmail]
-
     const user = DEMO_USERS.find(
-      (demoUser) => demoUser.id === userId
+      (demoUser) => demoUser.id === account.userId
     )
 
     if (!user) {
@@ -101,11 +80,13 @@ export default function Login() {
 
     localStorage.setItem('currentUser', user.id)
 
-    goToWorkspace(
-      user.id === 'maya-chen'
-        ? '/manufacturer-dashboard'
-        : '/hospital'
-    )
+    if (user.type === 'manufacturer') {
+      sessionStorage.setItem('showHospitalWelcome', 'false')
+      goToWorkspace('/manufacturer-dashboard')
+    } else {
+      sessionStorage.setItem('showHospitalWelcome', 'true')
+      goToWorkspace('/hospital')
+    }
   }
 
   const fillDemoCredentials = () => {
@@ -152,22 +133,35 @@ export default function Login() {
         <circle cx="526" cy="305" r="5" />
       </svg>
 
-      <Link className="login-back" to="/">
-        <span aria-hidden="true">←</span>
-        <span>Back</span>
-      </Link>
+      <header className="login-header">
+
+        
+        <Link className="login-back" to="/">
+          ← Back
+        </Link>
+
+
+      </header>
 
       <section
-        className="login-panel"
+        className="login-center"
         aria-labelledby="login-title"
       >
         <header className="login-heading">
-        <h1 id="login-title">
-          {isHospital
-            ? 'Hospital access'
-            : 'Device company access'}
-        </h1>
-      </header>
+
+          <Link className="login-logo" to="/">
+          VERA<span>+</span>
+        </Link>
+          
+
+          <p>
+            {isHospital
+              ? 'HOSPITAL ACCESS'
+              : 'DEVICE COMPANY ACCESS'}
+          </p>
+        </header>
+
+        <br></br>
 
         <form
           className="login-form"
@@ -223,7 +217,11 @@ export default function Login() {
             type="submit"
             disabled={isLeaving}
           >
-            {isLeaving ? 'Opening…' : 'Sign In'}
+            <span>
+              {isLeaving ? 'OPENING' : 'CONTINUE'}
+            </span>
+
+            <span aria-hidden="true">→</span>
           </button>
         </form>
 

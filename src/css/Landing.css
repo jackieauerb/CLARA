@@ -1,36 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
 
-:root {
-  font-family: "Montserrat", Arial, sans-serif;
-  color: #0a1222;
-  background: #f6f7f8;
-  font-synthesis: none;
-  text-rendering: geometricPrecision;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-  width: 100%;
-  min-width: 320px;
-  min-height: 100%;
-  margin: 0;
-}
-
-body {
-  overflow: hidden;
-}
-
-button,
-input,
-a {
-  font: inherit;
-}
-
 .landing-page {
   position: relative;
   isolation: isolate;
@@ -39,6 +8,8 @@ a {
   min-height: 100vh;
   overflow: hidden;
 
+  font-family: "Montserrat", Arial, sans-serif;
+  color: #0a1222;
   background:
     radial-gradient(
       circle at 50% -8%,

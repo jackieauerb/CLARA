@@ -3,46 +3,43 @@ import {
   Route,
   Routes,
 } from 'react-router-dom'
-import { ProtocolProvider } from './context/ProtocolContext'
 
 import Landing from './pages/Landing'
 import Login from './pages/Login'
-import Dashboard from './pages/Dashboard'
-import ManufacturerDashboard from './pages/dashboards/ManufacturerDashboard'
-import DeviceDetails from './pages/dashboards/DeviceDetails'
+import HospitalDashboard from './pages/hospital/HospitalDashboard'
+import DeviceDetails from './pages/hospital/DeviceDetails'
+import ManufacturerDashboard from './pages/manufacturer/ManufacturerDashboard'
 
 function App() {
   return (
-    <ProtocolProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={<Landing />}
-          />
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={<Landing />}
+        />
 
-          <Route
-            path="/login"
-            element={<Login />}
-          />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-          <Route
-            path="/hospital"
-            element={<Dashboard />}
-          />
+        <Route
+          path="/hospital"
+          element={<HospitalDashboard />}
+        />
 
-          <Route
-            path="/hospital/devices/:deviceId"
-            element={<DeviceDetails />}
-          />
+        <Route
+          path="/hospital/devices/:deviceId"
+          element={<DeviceDetails />}
+        />
 
-          <Route
-            path="/manufacturer-dashboard"
-            element={<ManufacturerDashboard />}
-          />
-        </Routes>
-      </BrowserRouter>
-    </ProtocolProvider>
+        <Route
+          path="/manufacturer-dashboard"
+          element={<ManufacturerDashboard />}
+        />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
