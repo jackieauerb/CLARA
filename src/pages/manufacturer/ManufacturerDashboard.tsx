@@ -208,7 +208,7 @@ export default function ManufacturerDashboard() {
       "manufacturer-dashboard-welcomed",
     );
 
-    navigate("/");
+    navigate("/s");
   };
 
   const handleMetricClick = (metric: ManufacturerMetric) => {
@@ -537,7 +537,7 @@ export default function ManufacturerDashboard() {
                 <span
                   className={`manufacturer-action-status manufacturer-action-status--${action.status
                     .toLowerCase()
-                    .replaceAll(" ", "-")}`}
+                    .replace(/_/g, " ")}`}
                 >
                   {action.status}
                 </span>
