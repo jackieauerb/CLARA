@@ -208,7 +208,7 @@ export default function ManufacturerDashboard() {
       "manufacturer-dashboard-welcomed",
     );
 
-    navigate("/s");
+    navigate("/login");
   };
 
   const handleMetricClick = (metric: ManufacturerMetric) => {
