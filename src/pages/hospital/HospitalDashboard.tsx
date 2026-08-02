@@ -142,7 +142,7 @@ export default function HospitalDashboard() {
         <div className="hospital-splash" aria-live="polite">
           <div className="hospital-splash__glow" />
           <div className="hospital-splash__content">
-            <div className="hospital-splash__logo">VERA<span>+</span></div>
+            <div className="hospital-splash__logo">CLARA<span>+</span></div>
             <p className="hospital-splash__eyebrow">North Valley Medical Center</p>
             <h1>Welcome back, Emily.</h1>
             <p className="hospital-splash__message">Retrieving your devices</p>
@@ -153,7 +153,7 @@ export default function HospitalDashboard() {
 
       <header className="hospital-header">
         <div className="hospital-header__left">
-          <button className="hospital-logo" type="button" onClick={() => navigate("/hospital")} aria-label="VERA+ hospital dashboard">VERA<span>+</span></button>
+          <button className="hospital-logo" type="button" onClick={() => navigate("/hospital")} aria-label="CLARA+ hospital dashboard">CLARA<span>+</span></button>
           <nav className="hospital-nav" aria-label="Hospital navigation">
             <button className="hospital-nav__item is-active" type="button">Devices</button>
             <button className="hospital-nav__item" type="button">Documents</button>

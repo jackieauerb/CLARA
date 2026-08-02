@@ -150,7 +150,7 @@ export default function Login() {
         <header className="login-heading">
 
           <Link className="login-logo" to="/">
-          VERA<span>+</span>
+          CLARA<span>+</span>
         </Link>
           
 

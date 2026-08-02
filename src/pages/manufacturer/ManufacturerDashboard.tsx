@@ -242,7 +242,7 @@ export default function ManufacturerDashboard() {
 
           <div className="manufacturer-splash__content">
             <div className="manufacturer-splash__logo">
-              VERA<span>+</span>
+              CLARA<span>+</span>
             </div>
 
             <p className="manufacturer-splash__eyebrow">
@@ -271,9 +271,9 @@ export default function ManufacturerDashboard() {
             className="manufacturer-logo"
             type="button"
             onClick={() => navigate("/manufacturer-dashboard")}
-            aria-label="VERA+ manufacturer dashboard"
+            aria-label="CLARA+ manufacturer dashboard"
           >
-            VERA<span>+</span>
+            CLARA<span>+</span>
           </button>
 
           <nav
@@ -476,7 +476,7 @@ export default function ManufacturerDashboard() {
         >
           <div className="manufacturer-section-heading manufacturer-section-heading--actions">
             <div>
-              <h2>Recent actions in VERA+</h2>
+              <h2>Recent actions in CLARA+</h2>
 
               <p>
                 Updates and responses your team has sent to

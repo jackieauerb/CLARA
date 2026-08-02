@@ -67,14 +67,14 @@ export default function Landing() {
         <circle cx="526" cy="305" r="5" />
       </svg>
 
-      <section className="hero" aria-labelledby="vera-title">
-        <h1 id="vera-title" className="brand">
-          <span>VERA</span>
+      <section className="hero" aria-labelledby="clara-title">
+        <h1 id="clara-title" className="brand">
+          <span>CLARA</span>
           <span className="brand-plus">+</span>
         </h1>
 
         <p className="tagline">
-          MEDICAL DEVICE MAINTENANCE. <span>VERIFIED.</span>
+          MEDICAL DEVICE MAINTENANCE. <span>CLARIFIED.</span>
         </p>
 
         <div

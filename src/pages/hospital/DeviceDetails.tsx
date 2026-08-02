@@ -1169,7 +1169,7 @@ export default function DeviceDetails() {
       <header className="device-details-header">
         <div className="device-details-header__left">
           <button className="device-details-logo" type="button" onClick={returnToLibrary}>
-            VERA<span>+</span>
+            CLARA<span>+</span>
           </button>
 
           <nav className="device-details-nav" aria-label="Main navigation">
