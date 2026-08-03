@@ -57,10 +57,10 @@ export interface Device {
 
 export const DEVICES: Device[] = [
   {
-    id: 'aster-scope-flex-300',
-    name: 'AsterScope Flex 300',
+    id: 'es-340-flexible-endoscope',
+    name: 'ES-340 Endoscope',
     manufacturer: 'Aster Medical Devices',
-    model: 'ASF-300',
+    model: 'ES-340',
     department: 'Sterile Processing',
     image: endoscopeImage,
     status: 'new-update',
@@ -72,38 +72,38 @@ export const DEVICES: Device[] = [
       title: 'Distal-channel cleaning procedure revised',
       date: 'July 18, 2026',
       summary:
-        'The distal-channel flush is now longer and requires the AsterFlow adapter. No other cleaning steps were changed.',
+        'The distal-channel flush is now longer and requires the ES-340 adapter. No other cleaning steps were changed.',
       previous:
         'Flush the distal channel with approved enzymatic detergent for 30 seconds.',
       current:
-        'Flush the distal channel for 90 seconds using the AsterFlow adapter before automated reprocessing.',
+        'Flush the distal channel for 90 seconds using the ES-340 adapter before automated reprocessing.',
       reason:
         'Manufacturer validation found that the previous flush duration may not consistently remove residual material from the distal channel.',
     },
     tasks: [
       {
-        id: 'aster-1',
+        id: 'es-340-1',
         title: 'Confirm which hospital devices are affected',
         department: 'Clinical Engineering',
         type: 'necessary',
         complete: false,
       },
       {
-        id: 'aster-2',
-        title: 'Confirm AsterFlow adapters are available',
+        id: 'es-340-2',
+        title: 'Confirm ES-340 adapters are available',
         department: 'Supply Chain',
         type: 'necessary',
         complete: false,
       },
       {
-        id: 'aster-3',
+        id: 'es-340-3',
         title: 'Update internal cleaning instructions',
         department: 'Sterile Processing',
         type: 'necessary',
         complete: false,
       },
       {
-        id: 'aster-4',
+        id: 'es-340-4',
         title:
           'Share revised instructions with affected technicians',
         department: 'Clinical Education',
@@ -111,7 +111,7 @@ export const DEVICES: Device[] = [
         complete: false,
       },
       {
-        id: 'aster-5',
+        id: 'es-340-5',
         title:
           'Discuss the update during the next team huddle',
         department: 'Sterile Processing',

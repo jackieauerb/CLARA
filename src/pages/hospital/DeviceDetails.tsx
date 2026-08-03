@@ -57,10 +57,10 @@ type DeviceProfile = {
 
 const deviceProfiles: DeviceProfile[] = [
   {
-    id: "asterscope-flex-300",
+    id: "es-340-flexible-endoscope",
     manufacturer: "Aster Medical Devices",
-    name: "AsterScope Flex 300",
-    model: "ASF-300",
+    name: "ES-340 Endoscope",
+    model: "ES-340",
     department: "Sterile Processing",
     image: endoscopeImage,
     category: "Flexible endoscope",
@@ -68,7 +68,7 @@ const deviceProfiles: DeviceProfile[] = [
     procedureDescription:
       "Follow these instructions immediately after use to protect the distal channel and prevent internal residue.",
     updated: "July 14, 2026",
-    verificationId: "AM-ASF-CLN-2.4",
+    verificationId: "AM-ES340-CLN-2.4",
     estimatedTime: "12 minutes",
     requirements: [
       {
@@ -79,7 +79,7 @@ const deviceProfiles: DeviceProfile[] = [
       },
       {
         label: "Required adapter",
-        value: "AsterFlow adapter",
+        value: "ES-340 adapter",
         note: "Confirm a complete seal",
         tone: "warning",
       },
@@ -116,7 +116,7 @@ const deviceProfiles: DeviceProfile[] = [
       },
       {
         number: "03",
-        title: "Attach the AsterFlow adapter",
+        title: "Attach the ES-340 adapter",
         description:
           "Seat the adapter fully and confirm that the connection remains secure before starting the flush.",
         warning:
@@ -142,7 +142,7 @@ const deviceProfiles: DeviceProfile[] = [
     ],
     criticalDetails: [
       "Use distilled water only",
-      "Attach the AsterFlow adapter",
+      "Attach the ES-340 adapter",
       "Flush continuously for 90 seconds",
       "Keep all liquids below 40°C",
     ],

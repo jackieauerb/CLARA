@@ -27,7 +27,7 @@ type Device = {
 };
 
 const devices: Device[] = [
-  { id: "asterscope-flex-300", manufacturer: "Aster Medical Devices", name: "AsterScope Flex 300", model: "ASF-300", department: "Sterile Processing", image: endoscopeImage, guidance: "Cleaning and reprocessing", hasUpdate: true },
+  { id: "es-340-flexible-endoscope", manufacturer: "Aster Medical Devices", name: "ES-340 Endoscope", model: "ES-340", department: "Sterile Processing", image: endoscopeImage, guidance: "Cleaning and reprocessing", hasUpdate: true },
   { id: "vectra-contrast-injector", manufacturer: "Vectra Medical", name: "Vectra Contrast Injector", model: "VCI-200", department: "Radiology", image: contrastInjectorImage, guidance: "Setup and pressure-line care" },
   { id: "nova-infusion-pump", manufacturer: "Northstar Medical", name: "Nova Infusion Pump", model: "NP-410", department: "Clinical Engineering", image: infusionPumpImage, guidance: "Inspection and occlusion check" },
   { id: "aurelia-anesthesia-workstation", manufacturer: "Aurelia Medical", name: "Aurelia Anesthesia Workstation", model: "AAW-600", department: "Anesthesiology", image: anesthesiaWorkstationImage, guidance: "Pre-use system inspection" },

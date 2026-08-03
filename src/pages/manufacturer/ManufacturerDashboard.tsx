@@ -35,7 +35,7 @@ const recentActions: RecentAction[] = [
     title: "Updated cleaning procedure",
     description:
       "Clarified distal-channel cleaning steps and approved solution types.",
-    device: "AsterScope Flex 300",
+    device: "ES-340 Endoscope",
     sent: "May 6, 2026",
     hospitals: "6 of 8 acknowledged",
     status: "Acknowledged",

@@ -23,8 +23,10 @@
 }
 
 .device-details-page.is-leaving {
+  opacity: 0;
   pointer-events: none;
-  animation: devicePageDissolveOut 180ms ease forwards;
+
+  transition: opacity 220ms ease;
 }
 
 .device-details-page *,

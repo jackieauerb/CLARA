@@ -92,7 +92,7 @@ export const DEMO_USERS: User[] = [
 
 export const PROTOCOL_CHANGE: ProtocolChange = {
   id: 'AC-2026-014',
-  device: 'AsterScope Flex 300 Endoscope',
+  device: 'ES-340 Endoscope',
   manufacturer: 'Aster Medical Devices',
   title: 'Revised distal-channel cleaning procedure',
   issued: 'July 14, 2026',
@@ -110,7 +110,7 @@ export const PROTOCOL_CHANGE: ProtocolChange = {
   previousProtocol:
     'Flush the distal channel with approved enzymatic detergent for 30 seconds.',
   updatedProtocol:
-    'Flush the distal channel with approved enzymatic detergent for 90 seconds using the new AsterFlow adapter before automated reprocessing.',
+    'Flush the distal channel with approved enzymatic detergent for 90 seconds using the new ES-340 adapter before automated reprocessing.',
   reason:
     'Internal validation found that the previous 30-second flush may not consistently remove residual material from the distal channel.',
   implementationSteps: [
@@ -118,7 +118,7 @@ export const PROTOCOL_CHANGE: ProtocolChange = {
     'Confirm affected device inventory',
     'Review and approve the revised procedure',
     'Update the STERIS SPM guided workflow',
-    'Confirm availability of the AsterFlow adapter',
+    'Confirm availability of the ES-340 adapter',
     'Assign updated training to 11 technicians',
     'Verify the revised process is active',
     'Submit final implementation confirmation to the manufacturer',
